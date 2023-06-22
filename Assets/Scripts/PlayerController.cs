@@ -5,26 +5,31 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //Private variables
-    private float speed = 5.0f;
-    private float turnSpeed=25.0f;
-    private float horizontalInput;
-    private float forwardInput;
+   private Rigidbody playerRb;
+   public float jumpForce=10;
+   public float gravityModifier;
+   public bool isOnGround=true;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerRb= GetComponent<Rigidbody>();
+        Physics.gravity *= gravityModifier;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //this is where we get player input
-        horizontalInput = Input.GetAxis("Horizontal");
-        forwardInput = Input.GetAxis("Vertical");
-    
-        //we move de vehicle forward
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-        transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
-       
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            playerRb.AddForce(Vector3.up * jumpForce , ForceMode.Impulse);
+            isOnGround=false;
+                   
+        }
+     
+    } 
+    private void OnCollisionEnter(Collision collision){
+        isOnGround=true;
     }
+
+   
 }
