@@ -8,6 +8,12 @@ TagManager:
   - Obstacle
   - powerup
   - enemy
+  - Enemy
+  - Powerup
+  - Background
+  - Bomb
+  - Money
+  - Powerup1
   layers:
   - Default
   - TransparentFX

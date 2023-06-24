@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LabPlayerController : MonoBehaviour
 {
-    private float speed =10.0f;
+    public float speed =50.0f;
     private Rigidbody playerRb;
     private float zBound =6;
     // Start is called before the first frame update
@@ -21,6 +21,8 @@ public class LabPlayerController : MonoBehaviour
 
     }
 
+     
+    
     void MovePlayer()
     {
         
@@ -43,5 +45,20 @@ public class LabPlayerController : MonoBehaviour
         transform.position=new Vector3(transform.position.x,transform.position.y,zBound);
            
             }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Player has collided with enemy");
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Powerup1"))
+        {  
+            Destroy(other.gameObject);    
+        }
     }
 }
